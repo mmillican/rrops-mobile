@@ -27,10 +27,10 @@ export class ManifestService {
 
         // Things seem to not like this... guessing becaus async... 
 
-        // data.locations.forEach(locEle => {
-        //     var manLoc = this.buildManifestLocation(locEle);
-        //     manifest.manifestLocations.push(manLoc);
-        // });
+        data.locations.forEach(locEle => {
+            var manLoc = this.buildManifestLocation(locEle);
+            manifest.manifestLocations.push(manLoc);
+        });
 
 
         return manifest;
@@ -41,10 +41,13 @@ export class ManifestService {
         manLoc.comment = locData.comment;
         manLoc.departureTime = locData.departureTime;
         manLoc.trainDirection = locData.trainDirection;
-        manLoc.length = locData.length.length;
         manLoc.weight = locData.weight;
-        
-        console.log('built ' + manLoc.name);
+
+        // apparently length can be null...
+        if (locData.length) {
+            manLoc.length = locData.length.length + ' ' + locData.length.unit;
+        }
+
         // cars/engines below...
         return manLoc;
     }

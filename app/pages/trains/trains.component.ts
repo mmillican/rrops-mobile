@@ -30,7 +30,6 @@ export class TrainsComponent implements OnInit{
                 loadedTrains.forEach((trainObj) => {
                     this.trainList.unshift(trainObj);
                 });
-                console.log(this.trainList[0].name);
                 this.isLoading = false;
                 this.listLoaded = true;
             });

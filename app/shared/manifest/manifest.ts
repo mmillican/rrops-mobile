@@ -22,7 +22,7 @@ export class ManifestLocation {
 
     trainDirection: number;
 
-    length: number;
+    length: string;
     weight: number;
 
     addCars: RosterItemMove<Car>[];
