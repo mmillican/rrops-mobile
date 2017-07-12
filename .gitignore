@@ -1,0 +1,6 @@
+platforms
+node_modules
+app/**/*.js
+hooks
+.DS_Store
+npm-debug.log

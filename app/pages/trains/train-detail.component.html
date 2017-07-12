@@ -1,0 +1,34 @@
+<ActionBar [title]="train.name">
+    
+</ActionBar>
+
+<GridLayout rows="auto, auto, auto, auto, auto, auto, auto" columns="*, *">
+    <!--<Label row="0" col="0" text="Status" class="train-status-heading"></Label>-->
+    <Label row="0" colspan="2" [text]="train.trainStatus" [class]="train.getTrainStatusClass('train-status-heading')" textWrap="true"></Label>
+    
+    <Label row="1" col="0" text="Departs" class="medium-spacing bold"></Label>
+    <Label row="1" col="1" [text]="train.departLocationName" class="medium-spacing"></Label>
+
+    <Label row="2" col="0" text="Terminates" class="medium-spacing bold"></Label>
+    <Label row="2" col="1" [text]="train.terminateLocationName" class="medium-spacing"></Label>
+
+    <Label row="3" col="0" text="Lead Engine" class="medium-spacing bold"></Label>
+    <Label row="3" col="1" [text]="train.leadEngine" class="medium-spacing"></Label>
+
+    <Label row="4" col="0" [text]="'Weight: ' + train.weight + ' tons'" class="medium-spacing"></Label>
+    <Label row="4" col="1" [text]="'Length: ' + train.length + ' ft'" class="medium-spacing"></Label>
+
+    <Label row="5" col="0" colspan="2" class="medium-spacing bold" text="Locations"></Label>
+    <Label row="5" col="1" [text]="train.getLocationNames()" class="medium-spacing" textWrap="true"></Label>
+
+    <Button row="6" col="0" colspan="2" class="medium-spacing" text="View manifest" (tap)="onViewManifest($event)"></Button>
+    <!--<ListView [items]="train.locations" row="6" col="0" colspan="2" [class.visible]="!isLoading" class="train-location-list">
+        <ng-template let-item="item">
+            <GridLayout columns="*">
+                <Label [text]="item.name" class="medium-spacing"></Label>        
+            </GridLayout>
+        </ng-template>
+    </ListView>-->
+
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" row="0" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+</GridLayout>

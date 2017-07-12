@@ -1,0 +1,58 @@
+@import "nativescript-theme-core/css/core.light.css";
+Page {
+  background-color: white;
+  font-size: 15;
+}
+
+.fa {
+  font-family: FontAwesome, fontawesome-webfont;
+}
+/*ActionBar {
+  background-color: black;
+  color: white;
+}*/
+TextField {
+  padding: 10;
+  font-size: 13;
+}
+.small-spacing {
+  margin: 5;
+}
+.medium-spacing {
+  margin: 10;
+}
+.bold {
+  font-weight: bold;
+}
+
+/* Train Details */ 
+.train-status-heading, { 
+  /*margin: 10px 0; */
+  padding: 10px 0;
+  text-align: center; 
+  font-size: 20px; 
+  font-weight: bold;
+}
+
+.train-status-heading.train-status-term {
+  background-color: orangered;
+  color: #FFF;
+}
+.train-status-heading.train-status-built {
+  background-color: green;
+  color: #FFF;
+}
+
+.train-location-list { 
+  padding: 10px 5px;
+  background-color: #F0F0F0;
+}
+
+
+.train-status-term {
+  color: orangered;
+}
+.train-status-built { 
+  color: green;
+}
+
