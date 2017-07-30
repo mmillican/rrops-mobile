@@ -1,4 +1,6 @@
-<ActionBar [title]="'Work at ' + manifestLocation.name"></ActionBar>
+<ActionBar [title]="'Work at ' + manifestLocation.name">
+    <ActionItem (tap)="onGoToNextLocation()" ios.systemIcon="17" ios.position="right" text="Next location" android.position="popup"></ActionItem>
+</ActionBar>
 
 <TabView selectedIndex="0">
     <GridLayout rows="*" cols="auto" *tabItem="{title: 'Pick Ups'}">
