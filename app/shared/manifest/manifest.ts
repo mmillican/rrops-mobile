@@ -56,6 +56,17 @@ export class RosterItemMove<T extends RosterItem> {
 
     location: LocationTrack;
     destination: LocationTrack;
+
+    get itemDesc():string {
+        if (!this.item){
+            return '';
+        }
+
+        let desc = this.item.road + ' ' + this.item.number + ' ' + this.item.length + '\' ' + 
+            this.item.color + ' ' + this.item.type;
+
+        return desc;
+    }
 }
 
 export class LocationTrack {

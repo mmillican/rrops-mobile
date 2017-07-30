@@ -1,1 +1,24 @@
 <ActionBar [title]="'Work at ' + manifestLocation.name"></ActionBar>
+
+<TabView selectedIndex="0">
+    <GridLayout rows="*" cols="auto" *tabItem="{title: 'Pick Ups'}">
+        <ListView [items]="manifestLocation.pickUps" class="list-group">
+            <ng-template let-item="item">
+                <StackLayout class="list-group-item">
+                    <Label [text]="item.itemDesc"></Label>
+                    <Label [text]="'from ' + item.location.trackName"></Label>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+    <GridLayout rows="*" cols="auto" *tabItem="{title: 'Set Outs'}">
+        <ListView [items]="manifestLocation.setOuts" class="list-group">
+            <ng-template let-item="item">
+                <StackLayout class="list-group-item">
+                    <Label [text]="item.itemDesc"></Label>
+                    <Label [text]="'to ' + item.destination.trackName"></Label>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+    </GridLayout>
+</TabView>

@@ -83,6 +83,10 @@ export class ManifestService {
             move.location = this.buildLocationTrack(data.location);
         }
 
+        if (data.destination) {
+            move.destination = this.buildLocationTrack(data.destination);
+        }
+
         return move;
     }
 
