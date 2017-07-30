@@ -9,6 +9,8 @@ export class Manifest {
 
     constructor(name: string) {
         this.name = name;
+
+        this.manifestLocations = [];
     }
 }
 
@@ -16,7 +18,7 @@ export class ManifestLocation {
     id: string;
 
     name: string;
-    comment: string;
+    description: string;
 
     departureTime: string;
 
@@ -24,6 +26,9 @@ export class ManifestLocation {
 
     length: string;
     weight: number;
+
+    setOuts: RosterItemMove<RosterItem>[] = [];
+    pickUps: RosterItemMove<RosterItem>[] = [];
 
     addCars: RosterItemMove<Car>[];
     removeCars: RosterItemMove<Car>[];
@@ -39,6 +44,10 @@ export class ManifestLocation {
         this.id = id;
         this.name = name;
     }
+
+    // getSetOuts(): RosterItemMove<RosterItem>[] { 
+    //     var setOuts = this.removeEngines.concat(this.removeCars);
+    // }
 }
 
 // TODO: Restrict T to RosterItem?

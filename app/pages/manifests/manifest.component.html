@@ -1,6 +1,26 @@
-<!--<ActionBar [title]="manifest.name + ' Man.'">
-    
-</ActionBar>-->
 <ActionBar title="Manifest"></ActionBar>
 
-<Label [text]="manifest.name"></Label>
+<StackLayout>
+    <Accordion [items]="manifestItems" itemTapped="tapped" headerTextBold="true" headerTextColor="white" headerColor="pink" headerTextColor="blue"
+    allowMultiple="true"  selectedIndex="2">
+
+    <ng-template accordionHeaderTemplate let-item="item" let-i="index">
+        <Label [text]="item.title"></Label>
+    </ng-template>
+
+    <ng-template accordionItemTemplate let-item="item" let-parent="parentIndex" let-even="even" let-child="childIndex">
+        <StackLayout>
+            <Label [text]="item.text"></Label>
+        </StackLayout>
+    </ng-template>
+
+    <!-- IOS Only -->
+    <ng-template accordionFooterTemplate let-item="item" let-i="index">
+        <GridLayout backgroundColor="yellow" columns="auto,*">
+            <Label [text]="item.footer"></Label>
+            <Label col="1" text="-"></Label>
+        </GridLayout>
+    </ng-template>
+    <!-- IOS Only -->
+</Accordion>
+</StackLayout>

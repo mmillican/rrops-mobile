@@ -4,19 +4,27 @@ import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 import { Train } from "../../shared/train/train";
 import { TrainService } from "../../shared/train/trains.service";
 
+import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../shared/manifest/manifest"
+import { Car, Engine } from "../../shared/roster/rosterItem";
+import { ManifestService } from "../../shared/manifest/manifest.service"
+
 @Component({
     selector: "trainDetails",
     templateUrl: "pages/trains/train-detail.component.html",
-    providers: [ TrainService ]
+    styleUrls: [ "pages/trains/train-detail.component.css" ],
+    providers: [ TrainService, ManifestService ]
 })
 export class TrainDetailComponent implements OnInit {
     private _train: Train = new Train();
-    trainName: string = "";
+    private _manifest: Manifest = new Manifest(null);
+    private manifestItems = [ ];
+
     private _isDataLoaded: boolean = false;
     private _isLoading: boolean = false;
 
     constructor(
         private _trainService: TrainService,
+        private _manifestService: ManifestService,
         private _pageRoute: PageRoute,
         private _zone: NgZone,
         private _routerExtensions: RouterExtensions
@@ -36,18 +44,26 @@ export class TrainDetailComponent implements OnInit {
             .subscribe(data => {
                 console.log('loaded train data');
                 this._train = data;
-                this.trainName = data.name;
                 this._isDataLoaded = true;
                 this._isLoading = false;
             });
-    }
 
-    onViewManifest(args): void {
-        this._routerExtensions.navigate(["/manifest", this._train.id]);
+        this._manifestService.getTrainManifest(trainId)
+            .subscribe(data => {
+                this._manifest = data;
+            });
     }
 
     get train(): Train {
         return this._train;
+    }
+
+    get manifestLocations(): ManifestLocation[] {
+        if (this._manifest && this._manifest.manifestLocations) {
+            return this._manifest.manifestLocations;
+        }
+
+        return [];
     }
     
     get isDataLoaded(): boolean {
@@ -56,5 +72,11 @@ export class TrainDetailComponent implements OnInit {
 
     get isLoading(): boolean {
         return this._isLoading;
+    }
+
+    onLocationSelected(args): void { 
+        let loc = args.view.bindingContext;
+        // console.log('view loc ' + loc.id);
+        this._routerExtensions.navigate(["/manifest", this._train.id, "loc", loc.id]);
     }
 }

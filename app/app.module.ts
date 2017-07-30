@@ -8,6 +8,8 @@ import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
 
+import { AccordionModule } from "nativescript-accordion/angular";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,8 @@ import { routes, navigatableComponents } from "./app.routing";
     TNSFontIconModule.forRoot({
 			'fa': './assets/font-awesome.css'
 		}),
-    NativeScriptRouterModule.forRoot(routes)
+    NativeScriptRouterModule.forRoot(routes),
+    AccordionModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

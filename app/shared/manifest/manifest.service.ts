@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Headers } from "@angular/http";
 import { Config } from "../config";
 import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "./manifest"
-import { Car, Engine } from "../roster/rosterItem";
+import { RosterItem, Car, Engine } from "../roster/rosterItem";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
@@ -23,10 +23,6 @@ export class ManifestService {
         let manifest = new Manifest(data.name);
         manifest.description = data.description;
 
-        console.log(data.locations.length + ' locs for man');
-
-        // Things seem to not like this... guessing becaus async... 
-
         data.locations.forEach(locEle => {
             var manLoc = this.buildManifestLocation(locEle);
             manifest.manifestLocations.push(manLoc);
@@ -38,7 +34,7 @@ export class ManifestService {
 
     private buildManifestLocation(locData): ManifestLocation { 
         let manLoc = new ManifestLocation(locData.id, locData.name);
-        manLoc.comment = locData.comment;
+        manLoc.description = locData.description;
         manLoc.departureTime = locData.departureTime;
         manLoc.trainDirection = locData.trainDirection;
         manLoc.weight = locData.weight;
@@ -48,8 +44,68 @@ export class ManifestService {
             manLoc.length = locData.length.length + ' ' + locData.length.unit;
         }
 
-        // cars/engines below...
+        if (locData.engines.add.length > 0) {
+            locData.engines.add.forEach(item => {
+                let move = this.buildRosterItemMove(item);
+                manLoc.pickUps.push(move);
+            })
+        }
+        if (locData.cars.add.length > 0) { 
+            locData.cars.add.forEach(item => { 
+                let move = this.buildRosterItemMove(item);
+                manLoc.pickUps.push(move);
+            });
+        }
+        if (locData.engines.remove.length > 0) {
+            locData.engines.remove.forEach(item => { 
+                let move = this.buildRosterItemMove(item);
+                manLoc.setOuts.push(move);
+            });
+        }
+        if (locData.cars.remove.length > 0) { 
+            locData.cars.remove.forEach(item => { 
+                let move = this.buildRosterItemMove(item);
+                manLoc.setOuts.push(move);
+            });
+        }
+
+        console.log(manLoc.name + ': pickups: ' + manLoc.pickUps.length);
+        
         return manLoc;
+    }
+
+    private buildRosterItemMove(data): RosterItemMove<RosterItem> { 
+        let move = new RosterItemMove();
+
+        move.item = this.buildRosterItem(data);
+        
+        if (data.location) {
+            move.location = this.buildLocationTrack(data.location);
+        }
+
+        return move;
+    }
+
+    private buildRosterItem(data): RosterItem { 
+        let item = new RosterItem();
+        item.id = data.id;
+        item.number = data.number;
+        item.road = data.road;
+        item.type = data.type;
+        item.length = data.length;
+        item.color = data.color;
+
+        return item;
+    }
+
+    private buildLocationTrack(data): LocationTrack { 
+        var locTrack = new LocationTrack();
+        locTrack.locationId = data.id;
+        locTrack.locationName = data.name;
+        locTrack.trackId = data.track.id;
+        locTrack.trackName = data.track.name;
+        
+        return locTrack;
     }
 
     private handleErrors(error: Response) {

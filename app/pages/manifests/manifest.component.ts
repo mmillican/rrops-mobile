@@ -8,10 +8,14 @@ import { ManifestService } from "../../shared/manifest/manifest.service";
 @Component({
     selector: "manifest",
     templateUrl: "pages/manifests/manifest.component.html",
+    styleUrls: [ "pages/manifests/manifest.component.css" ],
     providers: [ ManifestService ]
 })
 export class ManifestComponent implements OnInit {
     manifest: Manifest = new Manifest(null);
+
+    manifestItems = [ ];
+
     isLoading = false;
     isLoaded = false;
     
@@ -37,8 +41,28 @@ export class ManifestComponent implements OnInit {
                 this.manifest = data;
                 this.isLoaded = true;
                 this.isLoading = false;
+
+                this.manifest.manifestLocations.forEach(ml => {
+                    var locItem = {
+                        title: ml.id,
+                        headerText: ml.name,
+                        items: [ ]
+                    };
+
+                    ml.pickUps.forEach(lp => {
+                        var puItem = {
+                            text: lp.location.locationName + ' - ' + lp.location.trackId
+                        }
+                        locItem.items.push(puItem);
+                    });
+
+                    this.manifestItems.push(locItem);
+                });
             });
     }
 
+    onPickupLoaded(args) {
+        console.log(JSON.stringify(args));
+    }
 
 }

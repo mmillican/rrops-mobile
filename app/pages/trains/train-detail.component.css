@@ -1,0 +1,30 @@
+.train-status-heading, { 
+    /*margin: 10px 0; */
+    padding: 10 0;
+    text-align: center; 
+    font-size: 20; 
+    font-weight: bold;
+}
+
+.train-status-heading.train-status-term {
+    background-color: orangered;
+    color: #FFF;
+}
+.train-status-heading.train-status-built {
+    background-color: green;
+    color: #FFF;
+}
+
+.locations-heading { 
+    font-size: 20; 
+    font-weight: bold;
+}
+
+.train-location-list .location-name {
+    font-weight: bold;
+}
+
+.train-location-list .pickup-setout-counts { 
+    /* margin: 0 0 5 10; */
+    font-size: 14;
+}
