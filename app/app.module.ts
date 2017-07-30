@@ -8,7 +8,8 @@ import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { AppComponent } from "./app.component";
 import { routes, navigatableComponents } from "./app.routing";
 
-import { AccordionModule } from "nativescript-accordion/angular";
+import { NativeScriptUISideDrawerModule } from "nativescript-telerik-ui/sidedrawer/angular";
+import { NativeScriptUIListViewModule } from "nativescript-telerik-ui/listview/angular";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AccordionModule } from "nativescript-accordion/angular";
 			'fa': './assets/font-awesome.css'
 		}),
     NativeScriptRouterModule.forRoot(routes),
-    AccordionModule
+    NativeScriptUIListViewModule,
+    NativeScriptUISideDrawerModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

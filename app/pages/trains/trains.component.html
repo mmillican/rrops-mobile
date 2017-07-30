@@ -1,15 +1,24 @@
 <ActionBar title="Trains">
+  <ActionItem (tap)="onToggleSideDrawer()" ios.systemIcon="10" ios.position="left" android.position="popup"></ActionItem>
 </ActionBar>
 
-<GridLayout rows="auto">
-    <ListView row="0" [items]="trainList" [class.visible]="listLoaded" (itemTap)="onTrainSelected($event)">
-     <ng-template let-item="item">
-      <GridLayout columns="*, auto">
-        <Label col="0" [text]="item.name" class="medium-spacing" [class]="item.getTrainStatusClass('medium-spacing')"></Label>
-        <Label col="1" class="fa medium-spacing" [text]="'fa-chevron-right' | fonticon"></Label>
-      </GridLayout>
-    </ng-template>
-  </ListView>
+<RadSideDrawer>
+    <StackLayout tkDrawerContent class="side-drawer">
+        <StackLayout class="list-group">
+            <Label text="Trains" class="list-group-item"></Label>
+            <Label text="Car Roster" class="list-group-item"></Label>
+        </StackLayout>
+    </StackLayout>
+  <GridLayout tkMainContent rows="auto">
+      <ListView row="0" [items]="trainList" [class.visible]="listLoaded" (itemTap)="onTrainSelected($event)">
+      <ng-template let-item="item">
+        <GridLayout columns="*, auto">
+          <Label col="0" [text]="item.name" class="medium-spacing" [class]="item.getTrainStatusClass('medium-spacing')"></Label>
+          <Label col="1" class="fa medium-spacing" [text]="'fa-chevron-right' | fonticon"></Label>
+        </GridLayout>
+      </ng-template>
+    </ListView>
 
-  <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
-</GridLayout>
+    <ActivityIndicator [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+  </GridLayout>
+</RadSideDrawer>

@@ -35,3 +35,10 @@ TextField {
   color: green;
 }
 
+.side-drawer { 
+  background-color: #3f6ca3;
+  color: white;
+}
+.side-drawer .list-group-item {
+  color: white;
+}
