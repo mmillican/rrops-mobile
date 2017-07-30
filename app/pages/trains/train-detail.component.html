@@ -22,9 +22,11 @@
 
     <ListView [items]="manifestLocations" row="6" col="0" colspan="2" [class.visible]="!isLoading" class="list-group train-location-list" (itemTap)="onLocationSelected($event)">
         <ng-template let-item="item">
-            <GridLayout rows="auto, auto" columns="*" class="list-group-item">
+            <GridLayout rows="auto, auto" columns="*, auto" class="list-group-item">
                 <Label row="0" [text]="item.name" class="location-name"></Label>
-                <Label row="1" [text]="item.pickUps.length + ' pickups / ' + item.setOuts.length + ' set outs'" class="pickup-setout-counts"></Label>
+                <Label row="0" col="1" class="fa medium-spacing" [text]="'fa-chevron-right' | fonticon"></Label>
+
+                <Label row="1" colSpan="2" [text]="item.pickUps.length + ' pickups / ' + item.setOuts.length + ' set outs'" class="pickup-setout-counts"></Label>
             </GridLayout>
         </ng-template>
     </ListView>

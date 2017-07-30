@@ -45,7 +45,6 @@ export class ManifestLocationComponent implements OnInit {
                 this._manifest = data;
 
                 this._manifestLocation = this._manifest.manifestLocations.filter(ml => ml.id == locId)[0];
-                console.log(JSON.stringify(this._manifestLocation));
             });
     }
 
