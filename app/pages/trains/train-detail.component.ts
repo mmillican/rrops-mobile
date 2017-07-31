@@ -1,4 +1,5 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 
 import { Train } from "../../shared/train/train";
@@ -27,7 +28,8 @@ export class TrainDetailComponent implements OnInit {
         private _manifestService: ManifestService,
         private _pageRoute: PageRoute,
         private _zone: NgZone,
-        private _routerExtensions: RouterExtensions
+        private _routerExtensions: RouterExtensions,
+        private _router: Router
     ) { }
 
     ngOnInit():void {
@@ -77,6 +79,6 @@ export class TrainDetailComponent implements OnInit {
     onLocationSelected(args): void { 
         let loc = args.view.bindingContext;
         // console.log('view loc ' + loc.id);
-        this._routerExtensions.navigate(["/manifest", this._train.id, "loc", loc.id]);
+        this._router.navigate(["/manifest", this._train.id, "loc", loc.id]);
     }
 }

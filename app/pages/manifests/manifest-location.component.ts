@@ -1,5 +1,6 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../shared/manifest/manifest"
 import { Car, Engine } from "../../shared/roster/rosterItem";
@@ -24,28 +25,32 @@ export class ManifestLocationComponent implements OnInit {
     constructor(
         private _manifestService: ManifestService,
         private _zone: NgZone,
-        private _pageRoute: PageRoute,
-        private _routerExtensions: RouterExtensions
+        private _route : ActivatedRoute,
+        private _routerExtensions: RouterExtensions,
+        private _router: Router
     ) { }
 
     ngOnInit() {
-        this._pageRoute.activatedRoute
-            .switchMap((activatedRoute) => activatedRoute.params)
-            .forEach((params) => {
-                this._trainId = params["trainId"];
-                this._locId = params["locId"];
-            });
+        let sub = this._route.params.subscribe((params:any) => {
+            this._trainId = params['trainId'];
+            this._locId = params['locId'];
 
-        console.log('view manifest for train id ' + this._trainId + ' at loc ' + this._locId);
+            this._manifestService.getTrainManifest(this._trainId)
+                .subscribe(data => {
+                    this._manifest = data;
 
-        // TODO: Get data
+                    this._manifestLocation = this._manifest.manifestLocations.filter(ml => ml.id == this._locId)[0];
+                });
+        });
+        
+        // this._pageRoute.activatedRoute
+        //     .switchMap((activatedRoute) => activatedRoute.params)
+        //     .forEach((params) => {
+        //         this._trainId = params["trainId"];
+        //         this._locId = params["locId"];
+        //     });
 
-        this._manifestService.getTrainManifest(this._trainId)
-            .subscribe(data => {
-                this._manifest = data;
 
-                this._manifestLocation = this._manifest.manifestLocations.filter(ml => ml.id == this._locId)[0];
-            });
     }
 
     get manifest(): Manifest {
@@ -61,7 +66,7 @@ export class ManifestLocationComponent implements OnInit {
         
         if (nextLoc) {
             console.log('next loc ' + nextLoc);
-            this._routerExtensions.navigate(["/manifest", this._trainId, "loc", nextLoc.id]);
+            this._router.navigate(["/manifest", this._trainId, "loc", nextLoc.id]);
         }
     }
 
