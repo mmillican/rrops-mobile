@@ -42,15 +42,6 @@ export class ManifestLocationComponent implements OnInit {
                     this._manifestLocation = this._manifest.manifestLocations.filter(ml => ml.id == this._locId)[0];
                 });
         });
-        
-        // this._pageRoute.activatedRoute
-        //     .switchMap((activatedRoute) => activatedRoute.params)
-        //     .forEach((params) => {
-        //         this._trainId = params["trainId"];
-        //         this._locId = params["locId"];
-        //     });
-
-
     }
 
     get manifest(): Manifest {
@@ -65,7 +56,6 @@ export class ManifestLocationComponent implements OnInit {
         var nextLoc = this.getNextLocation();
         
         if (nextLoc) {
-            console.log('next loc ' + nextLoc);
             this._router.navigate(["/manifest", this._trainId, "loc", nextLoc.id]);
         }
     }
