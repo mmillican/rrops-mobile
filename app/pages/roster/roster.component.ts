@@ -11,6 +11,7 @@ import { RosterService } from "../../shared/roster/roster.service";
 @Component({
     selector: "roster",
     templateUrl: "pages/roster/roster.component.html",
+    styleUrls: [ "pages/roster/roster.component.css" ],
     providers: [ RosterService ]
 })
 export class RosterComponent implements OnInit, AfterViewInit { 

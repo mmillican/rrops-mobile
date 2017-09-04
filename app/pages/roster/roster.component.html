@@ -6,16 +6,18 @@
   <RadSideDrawer>
     <StackLayout tkDrawerContent class="side-drawer">
         <StackLayout class="list-group">
-            <Button text="Trains" class="list-group-item" [nsRouterLink]="['']" clearHistory="true"></Button>
+            <Button text="Trains" class="list-group-item" [nsRouterLink]="['/trains']" clearHistory="true"></Button>
             <Button text="Car Roster" class="list-group-item" [nsRouterLink]="['/roster']" clearHistory="true"></Button>
         </StackLayout>
     </StackLayout>
     <GridLayout tkMainContent rows="*">
-        <ListView row="0" [items]="localRosterItems" [class.visible]="isRosterLoaded">
+        <ListView row="0" [items]="localRosterItems" [class.visible]="isRosterLoaded" class="list-group roster-list">
             <ng-template let-item="item">
-                <GridLayout columns="*, auto">
-                <Label col="0" [text]="item.id" class="medium-spacing"></Label>
-                <Label col="1" class="fa medium-spacing" [text]="'fa-chevron-right' | fonticon"></Label>
+                <GridLayout rows="auto, auto" columns="*, auto" class="list-group-item">
+                    <Label row="0" col="0" [text]="item.road + ' ' + item.number" class="item-id"></Label>
+                    <Label row="0" col="1" class="fa medium-spacing" [text]="'fa-chevron-right' | fonticon"></Label>
+
+                    <Label row="1" col="0" [text]="item.color + ' ' + item.length + '\' ' + item.type" class="item-desc"></Label>
                 </GridLayout>
             </ng-template>
         </ListView>

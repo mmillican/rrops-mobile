@@ -26,7 +26,7 @@ export class RosterService {
                     item.road = car.data.road;
                     item.type = car.data.type;
                     item.color = car.data.color;
-                    item.length = car.data.color;
+                    item.length = car.data.length;
                     item.comment = car.data.comment;    
 
                     items.push(item);
