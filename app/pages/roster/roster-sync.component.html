@@ -1,0 +1,11 @@
+<ActionBar title="Roster Sync">
+</ActionBar>
+
+<GridLayout rows="auto, auto, auto" columns="*, *">
+    <Label row="0" col="0" class="medium-spacing bold" text="Current Count"></Label>
+    <Label row="0" col="1" class="medium-spacing" [text]="currentRosterCount"></Label>
+
+    <Button row="1" col="0" colSpan="2" text="Sync Roster" (tap)="onSyncRoster()" class="btn btn-primary"></Button>
+
+    <Button row="2" col="0" colSpan="2" text="Clear Roster" (tap)="onClearRoster()" class="btn btn-danger"></Button>
+</GridLayout>

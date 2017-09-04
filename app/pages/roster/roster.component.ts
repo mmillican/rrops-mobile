@@ -45,47 +45,8 @@ export class RosterComponent implements OnInit, AfterViewInit {
         this.drawer.toggleDrawerState();
     }
 
-    public onSyncRoster(): void { 
-        // TODO: Update existing items
-        // TODO: Delete old items
-        // TODO: Clear roster
-
-        console.log('SYNC ROSTER');
-        let insertCount = 0;
-        
-        this.isLoading = true;
-
-        this._rosterService.getCars()
-            .subscribe(rosterItems => {
-                console.log('ITEMS IN REMOTE ROSTER', rosterItems.length);
-
-                rosterItems.forEach(item => {
-                    console.log('ROSTER ITEM', item.id);
-                    this._database.get('SELECT * FROM rosterItem WHERE ID=?', [item.id])
-                        .then(row => {
-                            if (!row) {
-                                console.log('ROSTER ID NOT FOUND', item.id);
-                                this._database.execSQL("INSERT INTO rosterItem(id, road, number, type, length, color, comment) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                                    [item.id, item.road, item.number, item.type, item.length, item.color, item.comment ])
-                                    .then(id => {
-                                        console.log('INSERTED ROSTER ID', id);
-                                        insertCount++;
-                                    }, error => {
-                                        console.error('INSERT ROSTER ITEM ERROR', error);
-                                    })
-                            } else { 
-                                console.log('ROSTER ITEM FOUND', item.id);
-                            }
-                        })
-                });
-
-                dialogs.alert({
-                    title: 'Roster updated',
-                    message: insertCount + ' items added',
-                    okButtonText: 'OK'
-                })
-                this.refreshLocalRoster();
-            });
+    public onSyncRoster(): void {
+        this._routerExtensions.navigate(['/roster-sync']);
     }
 
     initLocalDb(): void {
