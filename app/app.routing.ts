@@ -7,11 +7,12 @@ import { ManifestLocationComponent } from "./pages/manifests/manifest-location.c
 import { RosterComponent } from "./pages/roster//roster.component";
 
 export const routes = [
-    { path: "", component: TrainsComponent },
+    { path: "trains", component: TrainsComponent },
     { path: "train-detail/:id", component: TrainDetailComponent },
     { path: "manifest/:id", component: ManifestComponent },
     { path: "manifest/:trainId/loc/:locId", component: ManifestLocationComponent },
-    { path: "roster", component: RosterComponent }
+    { path: "roster", component: RosterComponent },
+    { path: "**", redirectTo: "roster" }
 ];
 
 export const navigatableComponents = [
