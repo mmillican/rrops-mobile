@@ -42,3 +42,6 @@ TextField {
 .side-drawer .list-group-item {
   color: white;
 }
+.side-drawer Button { 
+  text-align: left;
+}
