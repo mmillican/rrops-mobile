@@ -43,18 +43,16 @@ export class RosterSyncComponent implements OnInit {
             .subscribe(rosterItems => {
                 console.log('ITEMS IN REMOTE ROSTER', rosterItems.length);
 
-                for (let idx = 0; idx < rosterItems.length; idx++) {
-                    let item = rosterItems[idx];
-
+                rosterItems.forEach(item => {
                     console.log('ROSTER ITEM', item.id);
                     this._database.get('SELECT * FROM rosterItem WHERE ID=?', [item.id])
                         .then(row => {
                             if (!row) {
-                                // console.log('ROSTER ID NOT FOUND', item.id);
+                                console.log('ROSTER ID NOT FOUND', item.id);
                                 this._database.execSQL("INSERT INTO rosterItem(id, road, number, type, length, color, comment) VALUES (?, ?, ?, ?, ?, ?, ?)",
                                     [item.id, item.road, item.number, item.type, item.length, item.color, item.comment ])
                                     .then(id => {
-                                        // console.log('INSERTED ROSTER ID', id);
+                                        console.log('INSERTED ROSTER ID', id);
                                         insertCount++;
                                     }, error => {
                                         console.error('INSERT ROSTER ITEM ERROR', error);
@@ -62,19 +60,14 @@ export class RosterSyncComponent implements OnInit {
                             } else { 
                                 console.log('ROSTER ITEM FOUND', item.id);
                             }
-                        });
-
-                    console.log('IDX ' + idx + ' of ' + rosterItems.length);
-
-                    if (idx + 1 >= rosterItems.length) {
-                        dialogs.alert({
-                            title: 'Roster updated',
-                            message: insertCount + ' items added',
-                            okButtonText: 'OK'
                         })
-                    }
-                }
+                });
 
+                dialogs.alert({
+                    title: 'Roster updated',
+                    message: insertCount + ' items added',
+                    okButtonText: 'OK'
+                })
 
                 this.getRosterCount();
             });
