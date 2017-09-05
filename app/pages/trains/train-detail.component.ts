@@ -2,6 +2,8 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core"
 import { Router } from "@angular/router";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 
+import { AppConfig } from "../../shared/app-config";
+
 import { Train } from "../../shared/train/train";
 import { TrainService } from "../../shared/train/trains.service";
 
@@ -13,7 +15,7 @@ import { ManifestService } from "../../shared/manifest/manifest.service"
     selector: "trainDetails",
     templateUrl: "pages/trains/train-detail.component.html",
     styleUrls: [ "pages/trains/train-detail.component.css" ],
-    providers: [ TrainService, ManifestService ]
+    providers: [ AppConfig, TrainService, ManifestService ]
 })
 export class TrainDetailComponent implements OnInit {
     private _train: Train = new Train();

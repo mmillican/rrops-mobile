@@ -1,19 +1,28 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-import { Config } from "../config";
-import { Train } from "./train";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
+import { AppConfig } from "../app-config";
+import { Config } from "../config";
+import { Train } from "./train";
+
 @Injectable()
 export class TrainService {
-    constructor(private http: Http) { }
+    private _config: Config;
+    
+    constructor(
+        private http: Http,
+        appConfig: AppConfig
+    ) { 
+        this._config = appConfig.getConfig();
+    }
 
     load() {
         let headers = new Headers();
         console.log("loading trains...");
 
-        return this.http.get(Config.apiUrl + "trains")
+        return this.http.get(this._config.apiUrl + "trains")
             .map(res => res.json())
             .map(data =>{
                 let trainList = [];
@@ -34,7 +43,7 @@ export class TrainService {
         let headers = new Headers();
         console.log('loading train ' + id);
 
-        return this.http.get(Config.apiUrl + 'train/' + id)
+        return this.http.get(this._config.apiUrl + 'train/' + id)
             .map(res => res.json())
             .map(td => this.populateTrain(td.data))
             .catch(this.handleErrors);

@@ -1,20 +1,30 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-import { Config } from "../config";
-import { RosterItem } from "./rosterItem";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
+
+import { AppConfig } from "../app-config";
+import { Config } from "../config";
+import { RosterItem } from "./rosterItem";
+
 @Injectable()
 export class RosterService { 
-    constructor(private http: Http) { }
+    private _config: Config;
+
+    constructor(
+        private http: Http,
+        appConfig: AppConfig
+    ) { 
+        this._config = appConfig.getConfig();
+    }
 
     getCars(): Observable<RosterItem[]> { 
         console.log('GET CARS');
 
         let headers = new Headers();
 
-        return this.http.get(Config.apiUrl + "cars")
+        return this.http.get(this._config.apiUrl + "cars")
             .map(res => res.json())
             .map(data => {
                 let items = [];

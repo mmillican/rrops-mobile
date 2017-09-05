@@ -5,13 +5,15 @@ import { RadSideDrawer } from "nativescript-telerik-ui/sidedrawer";
 import * as dialogs from "ui/dialogs";
 var Sqlite = require("nativescript-sqlite");
 
+import { AppConfig } from "../../shared/app-config";
+
 import { RosterItem } from "../../shared/roster/rosterItem";
 import { RosterService } from "../../shared/roster/roster.service";
 
 @Component({
     selector: "roster-sync",
     templateUrl: "pages/roster/roster-sync.component.html", 
-    providers: [ RosterService ]
+    providers: [ AppConfig, RosterService ]
 })
 export class RosterSyncComponent implements OnInit {
     private _database: any;

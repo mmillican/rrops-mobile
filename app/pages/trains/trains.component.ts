@@ -3,13 +3,15 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/sidedrawer/angular";
 import { RadSideDrawer } from 'nativescript-telerik-ui/sidedrawer';
 
+import { AppConfig } from "../../shared/app-config";
+
 import { Train } from "../../shared/train/train";
 import { TrainService } from "../../shared/train/trains.service";
 
 @Component({
     selector: "trains",
     templateUrl: "pages/trains/trains.component.html",
-    providers: [ TrainService ]
+    providers: [ AppConfig, TrainService ]
 })
 export class TrainsComponent implements OnInit, AfterViewInit {
     trainList: Array<Train> = [];

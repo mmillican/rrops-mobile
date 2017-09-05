@@ -1,19 +1,29 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-import { Config } from "../config";
-import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "./manifest"
-import { RosterItem, Car, Engine } from "../roster/rosterItem";
 import { Observable } from "rxjs/Rx";
 import "rxjs/add/operator/map";
 
+import { AppConfig } from "../app-config";
+import { Config } from "../config";
+import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "./manifest"
+import { RosterItem, Car, Engine } from "../roster/rosterItem";
+
+
 @Injectable()
 export class ManifestService {
-    constructor(private http: Http) { }
+    private _config: Config;
+
+    constructor(
+        private http: Http,
+        appConfig: AppConfig
+    ) { 
+        this._config = appConfig.getConfig();
+    }
 
     getTrainManifest(trainId: string) { 
         let headers = new Headers();
 
-        return this.http.get(Config.opsApiUrl + "manifest/" + trainId + "?format=json")
+        return this.http.get(this._config.opsApiUrl + "manifest/" + trainId + "?format=json")
             .map(res => res.json())
             .map(data => this.buildManifest(data))
             .catch(this.handleErrors);

@@ -1,0 +1,14 @@
+<ActionBar title="Setup"></ActionBar>
+
+<StackLayout>
+    <StackLayout>
+        <Label text="API URL" class="label" textWrap="true"></Label>
+        <TextField #apiUrl hint="http://localhost:12080" [text]="config.apiUrl" class="input input-border" autocorrect="false"></TextField>
+    </StackLayout>
+    <StackLayout>
+        <Label text="Ops API URL" class="label" textWrap="true"></Label>
+        <TextField #opsApiUrl hint="http://localhost:12080" [text]="config.opsApiUrl" class="input input-border" autocorrect="false"></TextField>
+    </StackLayout>
+
+    <Button text="Save config" (tap)="saveConfig(apiUrl.text, opsApiUrl.text)" class="btn btn-primary btn-active"></Button>    
+</StackLayout>

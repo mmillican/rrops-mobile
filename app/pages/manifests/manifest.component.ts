@@ -1,6 +1,8 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 
+import { AppConfig } from "../../shared/app-config";
+
 import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../shared/manifest/manifest"
 import { Car, Engine } from "../../shared/roster/rosterItem";
 import { ManifestService } from "../../shared/manifest/manifest.service";
@@ -9,7 +11,7 @@ import { ManifestService } from "../../shared/manifest/manifest.service";
     selector: "manifest",
     templateUrl: "pages/manifests/manifest.component.html",
     styleUrls: [ "pages/manifests/manifest.component.css" ],
-    providers: [ ManifestService ]
+    providers: [ AppConfig, ManifestService ]
 })
 export class ManifestComponent implements OnInit {
     manifest: Manifest = new Manifest(null);

@@ -7,6 +7,8 @@ import { ManifestLocationComponent } from "./pages/manifests/manifest-location.c
 import { RosterComponent } from "./pages/roster/roster.component";
 import { RosterSyncComponent } from "./pages/roster/roster-sync.component";
 
+import { SetupComponent } from "./pages/setup/setup.component";
+
 export const routes = [
     { path: "trains", component: TrainsComponent },
     { path: "train-detail/:id", component: TrainDetailComponent },
@@ -14,6 +16,7 @@ export const routes = [
     { path: "manifest/:trainId/loc/:locId", component: ManifestLocationComponent },
     { path: "roster", component: RosterComponent },
     { path: "roster-sync", component: RosterSyncComponent },
+    { path: "setup", component: SetupComponent },
     { path: "**", redirectTo: "roster" }
 ];
 
@@ -23,5 +26,6 @@ export const navigatableComponents = [
     ManifestComponent,
     ManifestLocationComponent,
     RosterComponent,
-    RosterSyncComponent
+    RosterSyncComponent,
+    SetupComponent
 ];

@@ -6,6 +6,7 @@ import { SearchBar } from "ui/search-bar";
 import * as dialogs from "ui/dialogs";
 var Sqlite = require("nativescript-sqlite");
 
+import { AppConfig } from "../../shared/app-config";
 import { RosterItem } from "../../shared/roster/rosterItem";
 import { RosterService } from "../../shared/roster/roster.service";
 
@@ -13,7 +14,7 @@ import { RosterService } from "../../shared/roster/roster.service";
     selector: "roster",
     templateUrl: "pages/roster/roster.component.html",
     styleUrls: [ "pages/roster/roster.component.css" ],
-    providers: [ RosterService ]
+    providers: [ AppConfig, RosterService ]
 })
 export class RosterComponent implements OnInit, AfterViewInit { 
     private _database: any;
@@ -32,6 +33,7 @@ export class RosterComponent implements OnInit, AfterViewInit {
         private zone: NgZone,
         private _routerExtensions: RouterExtensions,
         private _changeDetectorRef: ChangeDetectorRef,
+        private _appConfig: AppConfig,
         private _rosterService: RosterService
     ) { }
    
@@ -41,6 +43,10 @@ export class RosterComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        if (!this._appConfig.isConfigValid()) {
+            this._routerExtensions.navigate(['/setup']);
+        }
+
         this.initLocalDb();
     }
 
