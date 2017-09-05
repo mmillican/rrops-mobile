@@ -10,8 +10,11 @@
             <Button text="Car Roster" class="list-group-item" [nsRouterLink]="['/roster']" clearHistory="true"></Button>
         </StackLayout>
     </StackLayout>
-    <GridLayout tkMainContent rows="*">
-        <ListView row="0" [items]="localRosterItems" [class.visible]="isRosterLoaded" class="list-group roster-list">
+    <GridLayout tkMainContent rows="auto, *">
+        <SearchBar row="0" hint="Search road name, number or type" [text]="searchPhrase" (submit)="onSearchSubmit($event)" (clear)="onSearchClear($event)"
+            color="black" textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
+
+        <ListView row="1" [items]="localRosterItems" [class.visible]="isRosterLoaded" class="list-group roster-list">
             <ng-template let-item="item">
                 <GridLayout rows="auto, auto" columns="*, auto" class="list-group-item">
                     <Label row="0" col="0" [text]="item.road + ' ' + item.number" class="item-id"></Label>

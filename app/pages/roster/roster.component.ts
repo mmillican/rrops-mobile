@@ -2,6 +2,7 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild, AfterViewInit, Change
 import { RouterExtensions } from "nativescript-angular/router";
 import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/sidedrawer/angular";
 import { RadSideDrawer } from "nativescript-telerik-ui/sidedrawer";
+import { SearchBar } from "ui/search-bar";
 import * as dialogs from "ui/dialogs";
 var Sqlite = require("nativescript-sqlite");
 
@@ -17,6 +18,8 @@ import { RosterService } from "../../shared/roster/roster.service";
 export class RosterComponent implements OnInit, AfterViewInit { 
     private _database: any;
     localRosterItems: RosterItem[] = [];
+
+    private _searchTerm: string = '';
 
     isLoading = false;
     isRosterLoaded = false;
@@ -49,6 +52,21 @@ export class RosterComponent implements OnInit, AfterViewInit {
         this._routerExtensions.navigate(['/roster-sync']);
     }
 
+    public onSearchSubmit(args): void {
+        let searchBar = <SearchBar>args.object;
+        this._searchTerm = searchBar.text;
+        
+        this.refreshLocalRoster();
+    }
+
+    public onSearchClear(args): void {
+        let searchBar = <SearchBar>args.object;
+        searchBar.text = '';
+        this._searchTerm = '';
+
+        this.refreshLocalRoster();
+    }
+
     initLocalDb(): void {
         (new Sqlite('RailOps.db')).then(db => {
             db.execSQL("CREATE TABLE IF NOT EXISTS rosterItem(id TEXT PRIMARY KEY, road TEXT, number TEXT, type TEXT, length TEXT, color TEXT, comment TEXT)").then(id => {
@@ -64,11 +82,17 @@ export class RosterComponent implements OnInit, AfterViewInit {
     }
 
     refreshLocalRoster(): void {
-        console.log('REFRESH LOCAL ROSTER');
+        console.log('REFRESH LOCAL ROSTER', this._searchTerm);
 
         this.isLoading = true;
 
-        this._database.all('SELECT * FROM rosterItem')
+        let query = 'SELECT * FROM rosterItem';
+        if (this._searchTerm) {
+            query = query + ' WHERE (id LIKE \'%' + this._searchTerm + '%\')';
+            query = query + ' OR (type  LIKE \'%' + this._searchTerm + '%\')';
+        }
+
+        this._database.all(query)
             .then(rows => {
                 this.localRosterItems = [];
                 for (var row in rows) {
