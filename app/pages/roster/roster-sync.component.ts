@@ -38,38 +38,56 @@ export class RosterSyncComponent implements OnInit {
 
         console.log('SYNC ROSTER');
         let insertCount = 0;
-        
-        this.isLoading = true;
+        let doneCount = 0, needsToBeDone;
 
-        this._rosterService.getCars()
-            .subscribe(rosterItems => {
-                console.log('ITEMS IN REMOTE ROSTER', rosterItems.length);
+        new Promise((resolve) => {
+            const completed = function(error) {
+                if (error) {
+                    console.error('INSERT ROSTER ITEM ERROR', error);
+                } else {
+                    insertCount++;
+                }
+                doneCount++;
+                if (doneCount === needsToBeDone) {
+                    resolve();
+                }
+            };
 
-                rosterItems.forEach(item => {
-                    console.log('ROSTER ITEM', item.id);
-                    this._database.get('SELECT * FROM rosterItem WHERE ID=?', [item.id])
-                        .then(row => {
-                            if (!row) {
-                                console.log('ROSTER ID NOT FOUND', item.id);
-                                this._database.execSQL("INSERT INTO rosterItem(id, road, number, type, length, color, comment) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                                    [item.id, item.road, item.number, item.type, item.length, item.color, item.comment ])
-                                    .then(id => {
-                                        console.log('INSERTED ROSTER ID', id);
-                                        insertCount++;
-                                    }, error => {
-                                        console.error('INSERT ROSTER ITEM ERROR', error);
-                                    })
-                            } else { 
-                                console.log('ROSTER ITEM FOUND', item.id);
-                            }
-                        })
+            this.isLoading = true;
+
+            this._rosterService.getCars()
+                .subscribe(rosterItems => {
+                    console.log('ITEMS IN REMOTE ROSTER', rosterItems.length);
+                    needsToBeDone = rosterItems.length;
+
+                    rosterItems.forEach(item => {
+                        console.log('ROSTER ITEM', item.id);
+                        this._database.get('SELECT * FROM rosterItem WHERE ID=?', [item.id])
+                            .then(row => {
+                                if (!row) { // item not found in local roster
+                                    console.log('ROSTER ID NOT FOUND', item.id);
+                                    this._database.execSQL("INSERT INTO rosterItem(id, road, number, type, length, color, comment) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                                        [item.id, item.road, item.number, item.type, item.length, item.color, item.comment ], completed)
+                                        .then(id => {
+                                            console.log('INSERTED ROSTER ID', id);
+                                        }, error => {
+                                            console.error('INSERT ROSTER ITEM ERROR', error);
+                                        })
+                                } else { 
+                                    console.log('ROSTER ITEM FOUND', item.id);
+
+                                    completed(null);
+                                }
+                                
+                            })
+                    });
                 });
-
+            }).then(() => {
                 dialogs.alert({
                     title: 'Roster updated',
                     message: insertCount + ' items added',
                     okButtonText: 'OK'
-                })
+                });
 
                 this.getRosterCount();
             });
