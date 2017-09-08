@@ -61,6 +61,7 @@ export class RosterComponent implements OnInit, AfterViewInit {
     public onSearchSubmit(args): void {
         let searchBar = <SearchBar>args.object;
         this._searchTerm = searchBar.text;
+        searchBar.dismissSoftInput();
         
         this.refreshLocalRoster();
     }
@@ -69,6 +70,8 @@ export class RosterComponent implements OnInit, AfterViewInit {
         let searchBar = <SearchBar>args.object;
         searchBar.text = '';
         this._searchTerm = '';
+        
+        searchBar.dismissSoftInput();
 
         this.refreshLocalRoster();
     }
