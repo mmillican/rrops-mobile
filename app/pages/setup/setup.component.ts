@@ -7,26 +7,29 @@ import { Config } from "../../shared/config";
 @Component({
     selector: "setup",
     templateUrl: "pages/setup/setup.component.html",
+    styleUrls: ["pages/setup/setup.component.css"],
     providers: [AppConfig]
 })
 export class SetupComponent implements OnInit {
-    config: Config;
+    apiUrl: string = '';
+    opsApiUrl: string = '';
     
     constructor(
         private _appConfig: AppConfig,
         private _routerExtensions: RouterExtensions
-    ) {
-        this.config = _appConfig.getConfig();
-     }
+    ) { }
 
     ngOnInit() {
+        let config = this._appConfig.getConfig();
 
+        this.apiUrl = config.apiUrl;
+        this.opsApiUrl = config.opsApiUrl;
     }
 
-    saveConfig(apiUrl: string, opsApiUrl: string): void { 
+    saveConfig(): void { 
         let config = new Config();
-        config.apiUrl = apiUrl;
-        config.opsApiUrl = opsApiUrl;
+        config.apiUrl = this.apiUrl;
+        config.opsApiUrl = this.opsApiUrl;
 
         this._appConfig.setConfig(config);
 

@@ -1,14 +1,14 @@
 <ActionBar title="Setup"></ActionBar>
 
 <StackLayout>
-    <StackLayout>
+    <StackLayout class="input-field">
         <Label text="API URL" class="label" textWrap="true"></Label>
-        <TextField #apiUrl hint="http://localhost:12080" [text]="config.apiUrl" class="input input-border" autocorrect="false"></TextField>
+        <TextField hint="http://localhost:12080" [(ngModel)]="apiUrl" class="input input-border" autocorrect="false" autocapitalizationType="none" ></TextField>
     </StackLayout>
-    <StackLayout>
+    <StackLayout class="input-field">
         <Label text="Ops API URL" class="label" textWrap="true"></Label>
-        <TextField #opsApiUrl hint="http://localhost:12080" [text]="config.opsApiUrl" class="input input-border" autocorrect="false"></TextField>
+        <TextField hint="http://localhost:12080" [(ngModel)]="opsApiUrl" class="input input-border" autocorrect="false" autocapitalizationType="none" ></TextField>
     </StackLayout>
 
-    <Button text="Save config" (tap)="saveConfig(apiUrl.text, opsApiUrl.text)" class="btn btn-primary btn-active"></Button>    
+    <Button text="Save config" (tap)="saveConfig()" class="btn btn-primary btn-active"></Button>    
 </StackLayout>

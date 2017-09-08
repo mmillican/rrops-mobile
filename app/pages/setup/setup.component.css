@@ -1,0 +1,11 @@
+TextField {
+    margin-left: 16;
+    margin-right: 16;
+    margin-bottom: 10;
+    border-width: 1;
+    border-color: #999999;
+}
+
+.label {
+    margin: 10;
+}

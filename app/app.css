@@ -45,6 +45,10 @@ TextField {
 .side-drawer Button { 
   text-align: left;
 }
+.btn-primary { 
+  background-color: #3f6ca3;
+  color: white;
+}
 .btn-danger {
   background-color: red;
   color: white;
