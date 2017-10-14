@@ -76,6 +76,11 @@ export class RosterComponent implements OnInit, AfterViewInit {
         this.refreshLocalRoster();
     }
 
+    onRosterItemSelected(args): void {
+        let rosterItem = args.view.bindingContext;
+        this._routerExtensions.navigate(['/roster-detail', rosterItem.id]);
+    }
+
     initLocalDb(): void {
         (new Sqlite('RailOps.db')).then(db => {
             db.execSQL("CREATE TABLE IF NOT EXISTS rosterItem(id TEXT PRIMARY KEY, road TEXT, number TEXT, type TEXT, length TEXT, color TEXT, comment TEXT)").then(id => {

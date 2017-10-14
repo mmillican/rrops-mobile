@@ -1,0 +1,14 @@
+<ActionBar [title]="rosterItem.road + ' ' + rosterItem.number">
+
+</ActionBar>
+
+<GridLayout rows="auto, auto, auto" columns="*, *">
+    <Label row="0" col="0" class="item-desc-label medium-spacing" text="Type"></Label>
+    <Label row="0" col="1" class="item-desc-value medium-spacing" [text]="rosterItem.type"></Label>
+
+    <Label row="1" col="0" class="item-desc-label medium-spacing" text="Length"></Label>
+    <Label row="1" col="1" class="item-desc-value medium-spacing" [text]="rosterItem.length + ' ft'"></Label>
+    
+    <Label row="2" col="0" class="item-desc-label medium-spacing" text="Color"></Label>
+    <Label row="2" col="1" class="item-desc-value medium-spacing" [text]="rosterItem.color"></Label>
+</GridLayout>

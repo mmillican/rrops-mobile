@@ -15,7 +15,7 @@
         <SearchBar row="0" hint="Search road name, number or type" [text]="searchPhrase" (submit)="onSearchSubmit($event)" (clear)="onSearchClear($event)"
             color="black" textFieldBackgroundColor="white" textFieldHintColor="gray"></SearchBar>
 
-        <ListView row="1" [items]="localRosterItems" [class.visible]="isRosterLoaded" class="list-group roster-list">
+        <ListView row="1" [items]="localRosterItems" (itemTap)="onRosterItemSelected($event)" [class.visible]="isRosterLoaded" class="list-group roster-list">
             <ng-template let-item="item">
                 <GridLayout rows="auto, auto" columns="*, auto" class="list-group-item">
                     <Label row="0" col="0" [text]="item.road + ' ' + item.number" class="item-id"></Label>
