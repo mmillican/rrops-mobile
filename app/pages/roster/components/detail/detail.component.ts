@@ -3,14 +3,15 @@ import { PageRoute, RouterExtensions } from 'nativescript-angular/router';
 
 var Sqlite = require('nativescript-sqlite');
 
-import { AppConfig } from '../../shared/app-config';
-import { RosterItem } from '../../shared/roster/rosterItem';
-import { RosterService } from '../../shared/roster//roster.service';
+import { AppConfig } from '../../../../shared/app-config';
+import { RosterItem } from '../../../../shared/roster/rosterItem';
+import { RosterService } from '../../../../shared/roster/roster.service';
 
 @Component({
+    moduleId: module.id,
     selector: 'roster-detail',
-    templateUrl: 'pages/roster/roster-detail.component.html',
-    styleUrls: [ 'pages/roster/roster-detail.component.css' ],
+    templateUrl: './detail.component.html',
+    styleUrls: [ './detail.component.css' ],
     providers: [ AppConfig, RosterService ]
 })
 export class RosterDetailComponent implements OnInit { 

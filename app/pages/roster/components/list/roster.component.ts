@@ -6,14 +6,15 @@ import { SearchBar } from "ui/search-bar";
 import * as dialogs from "ui/dialogs";
 var Sqlite = require("nativescript-sqlite");
 
-import { AppConfig } from "../../shared/app-config";
-import { RosterItem } from "../../shared/roster/rosterItem";
-import { RosterService } from "../../shared/roster/roster.service";
+import { AppConfig } from '../../../../shared/app-config';
+import { RosterItem } from '../../../../shared/roster/rosterItem';
+import { RosterService } from '../../../../shared/roster/roster.service';
 
 @Component({
+    moduleId: module.id,
     selector: "roster",
-    templateUrl: "pages/roster/roster.component.html",
-    styleUrls: [ "pages/roster/roster.component.css" ],
+    templateUrl: "./roster.component.html",
+    styleUrls: [ "./roster.component.css" ],
     providers: [ AppConfig, RosterService ]
 })
 export class RosterComponent implements OnInit, AfterViewInit { 
@@ -55,7 +56,7 @@ export class RosterComponent implements OnInit, AfterViewInit {
     }
 
     public onSyncRoster(): void {
-        this._routerExtensions.navigate(['/roster-sync']);
+        this._routerExtensions.navigate(['/roster/sync']);
     }
 
     public onSearchSubmit(args): void {
@@ -78,7 +79,7 @@ export class RosterComponent implements OnInit, AfterViewInit {
 
     onRosterItemSelected(args): void {
         let rosterItem = args.view.bindingContext;
-        this._routerExtensions.navigate(['/roster-detail', rosterItem.id]);
+        this._routerExtensions.navigate(['/roster/details', rosterItem.id]);
     }
 
     initLocalDb(): void {
