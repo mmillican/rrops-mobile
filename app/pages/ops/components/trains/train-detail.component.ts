@@ -2,19 +2,20 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core"
 import { Router } from "@angular/router";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 
-import { AppConfig } from "../../shared/app-config";
+import { AppConfig } from "../../../../shared/app-config";
 
-import { Train } from "../../shared/train/train";
-import { TrainService } from "../../shared/train/trains.service";
+import { Train } from "../../../../shared/train/train";
+import { TrainService } from "../../../../shared/train/trains.service";
 
-import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../shared/manifest/manifest"
-import { Car, Engine } from "../../shared/roster/rosterItem";
-import { ManifestService } from "../../shared/manifest/manifest.service"
+import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../../../shared/manifest/manifest"
+import { Car, Engine } from "../../../../shared/roster/rosterItem";
+import { ManifestService } from "../../../../shared/manifest/manifest.service"
 
 @Component({
+    moduleId: module.id,
     selector: "trainDetails",
-    templateUrl: "pages/trains/train-detail.component.html",
-    styleUrls: [ "pages/trains/train-detail.component.css" ],
+    templateUrl: "./train-detail.component.html",
+    styleUrls: [ "./train-detail.component.css" ],
     providers: [ AppConfig, TrainService, ManifestService ]
 })
 export class TrainDetailComponent implements OnInit {
@@ -81,6 +82,6 @@ export class TrainDetailComponent implements OnInit {
     onLocationSelected(args): void { 
         let loc = args.view.bindingContext;
         // console.log('view loc ' + loc.id);
-        this._router.navigate(["/manifest", this._train.id, "loc", loc.id]);
+        this._router.navigate(["/ops/manifest", this._train.id, "loc", loc.id]);
     }
 }

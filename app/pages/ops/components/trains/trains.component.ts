@@ -3,14 +3,15 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { RadSideDrawerComponent, SideDrawerType } from "nativescript-telerik-ui/sidedrawer/angular";
 import { RadSideDrawer } from 'nativescript-telerik-ui/sidedrawer';
 
-import { AppConfig } from "../../shared/app-config";
+import { AppConfig } from "../../../../shared/app-config";
 
-import { Train } from "../../shared/train/train";
-import { TrainService } from "../../shared/train/trains.service";
+import { Train } from "../../../../shared/train/train";
+import { TrainService } from "../../../../shared/train/trains.service";
 
 @Component({
+    moduleId: module.id,
     selector: "trains",
-    templateUrl: "pages/trains/trains.component.html",
+    templateUrl: "./trains.component.html",
     providers: [ AppConfig, TrainService ]
 })
 export class TrainsComponent implements OnInit, AfterViewInit {
@@ -53,6 +54,6 @@ export class TrainsComponent implements OnInit, AfterViewInit {
 
     onTrainSelected(args): void{
         const train = args.view.bindingContext;
-        this._routerExtensions.navigate(["/train-detail", train.id]);
+        this._routerExtensions.navigate(["/ops/trains/detail", train.id]);
     }
 }

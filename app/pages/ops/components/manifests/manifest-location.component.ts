@@ -2,16 +2,17 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core"
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { AppConfig } from "../../shared/app-config";
+import { AppConfig } from "../../../../shared/app-config";
 
-import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../shared/manifest/manifest"
-import { Car, Engine } from "../../shared/roster/rosterItem";
-import { ManifestService } from "../../shared/manifest/manifest.service";
+import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../../../shared/manifest/manifest"
+import { Car, Engine } from "../../../../shared/roster/rosterItem";
+import { ManifestService } from "../../../../shared/manifest/manifest.service";
 
 @Component({
+    moduleId: module.id,
     selector: "manifest-location",
-    templateUrl: "pages/manifests/manifest-location.component.html",
-    styleUrls: [ "pages/manifests/manifest.component.css"],
+    templateUrl: "./manifest-location.component.html",
+    styleUrls: [ "./manifest.component.css"],
     providers: [ AppConfig, ManifestService ]
 })
 export class ManifestLocationComponent implements OnInit {
@@ -58,7 +59,7 @@ export class ManifestLocationComponent implements OnInit {
         var nextLoc = this.getNextLocation();
         
         if (nextLoc) {
-            this._router.navigate(["/manifest", this._trainId, "loc", nextLoc.id]);
+            this._router.navigate(["manifest", this._trainId, "loc", nextLoc.id]);
         }
     }
 

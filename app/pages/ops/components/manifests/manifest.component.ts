@@ -1,16 +1,17 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from "@angular/core";
 import { PageRoute, RouterExtensions } from "nativescript-angular/router";
 
-import { AppConfig } from "../../shared/app-config";
+import { AppConfig } from "../../../../shared/app-config";
 
-import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../shared/manifest/manifest"
-import { Car, Engine } from "../../shared/roster/rosterItem";
-import { ManifestService } from "../../shared/manifest/manifest.service";
+import { Manifest, ManifestLocation, LocationTrack, RosterItemMove } from "../../../../shared/manifest/manifest"
+import { Car, Engine } from "../../../../shared/roster/rosterItem";
+import { ManifestService } from "../../../../shared/manifest/manifest.service";
 
 @Component({
+    moduleId: module.id,
     selector: "manifest",
-    templateUrl: "pages/manifests/manifest.component.html",
-    styleUrls: [ "pages/manifests/manifest.component.css" ],
+    templateUrl: "./manifest.component.html",
+    styleUrls: [ "./manifest.component.css" ],
     providers: [ AppConfig, ManifestService ]
 })
 export class ManifestComponent implements OnInit {
